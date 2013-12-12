@@ -1,9 +1,9 @@
 package com.smash.Transfertron5000;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
+import java.io.*;
 
 public class Transfertron5000 {
 
@@ -11,7 +11,7 @@ public class Transfertron5000 {
         Transfertron5000 gui = new Transfertron5000();
         gui.go();
     }
-
+    
     private void go() {
         JFrame frame  = new JFrame();
         Button button = new Button();
@@ -24,13 +24,33 @@ public class Transfertron5000 {
         button.addActionListener(new ButtonActionListener());
         // Add components
         frame.add(button);
-
+        
         frame.setVisible(true);
     }
-
+    
     class ButtonActionListener implements ActionListener {
+        Checksum checksum = new Checksum();
+    	File     dir      = new File(System.getProperty("user.dir"));
+    	String[] paths    = dir.list();
+    	File[]   matches  = dir.listFiles(new FileFilter() {
+    	    @Override
+    	    public boolean accept(File dir) {
+    	        return !dir.isDirectory(); 
+    	    }
+    	});
         public void actionPerformed(ActionEvent event) {
-            System.out.println(System.getProperty("user.dir"));
+        	System.out.print("user.dir = ");
+        	System.out.println(System.getProperty("user.dir"));
+        	System.out.println("matches:");
+        	for (int index = 0; index < matches.length; index++){
+        		try {
+                    System.out.println(checksum.generateMd5(matches[index].toString()));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+        	}
         }
     }
 }
@@ -43,3 +63,6 @@ public class Transfertron5000 {
 // Checksums: 
 // md5
 // sha1
+
+// MD5 (dummy_file.txt) = 9ed1c14b7774f9335f748a6e3faf6ed9
+//                        9ed1c14b7774f9335f748a6e3faf6ed9
