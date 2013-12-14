@@ -17,7 +17,7 @@ public class BaseListener {
         File[]     matches  = dir.listFiles(new FileFilter() {
             @Override
             public boolean accept(File dir) {
-                return !dir.isDirectory(); 
+                return !dir.isDirectory() && !dir.getName().startsWith("."); 
             }
         });
         int          length = matches.length;
