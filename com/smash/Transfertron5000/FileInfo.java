@@ -25,5 +25,26 @@ public class FileInfo implements Serializable{
     public String getSha1() {
         return this.sha1;
     }
+    
+    // Equality methods:
+    
+    public boolean equalsName(FileInfo that) {
+        return this.name == that.name;
+    }
+    
+    public boolean equalsMd5(FileInfo that) {
+        return this.md5 == that.md5;
+    }
+    
+    public boolean equalsSha1(FileInfo that) {
+        return this.sha1 == that.sha1;
+    }
+    
+    public boolean[] equals(FileInfo that) {
+        boolean[] returnArray = { this.equalsName(that), 
+                                  this.equalsMd5(that), 
+                                  this.equalsSha1(that) };
+        return returnArray;
+    }
 
 }
