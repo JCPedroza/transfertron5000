@@ -2,20 +2,18 @@ package com.smash.Transfertron5000.listeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import com.smash.Transfertron5000.Checksum;
 import com.smash.Transfertron5000.FileInfo;
 
-public class ScanListener implements ActionListener{
+public class ScanListener extends BaseListener implements ActionListener{
     
     // Writes data to disc.
     private void writeData(FileInfo[] info) {
+        
         FileOutputStream fileStream;
         try {
             fileStream = new FileOutputStream(".transfertron5000.ser");
@@ -23,6 +21,7 @@ public class ScanListener implements ActionListener{
             fileStream = null;
             e.printStackTrace();
         }
+        
         ObjectOutputStream os;
         try {
             os = new ObjectOutputStream(fileStream);
@@ -33,30 +32,7 @@ public class ScanListener implements ActionListener{
             e.printStackTrace();
         }
     }
-    
-    // Scans files and generates checksums.
-    private FileInfo[] scan() {
         
-        Checksum   checksum = new Checksum();
-        File       dir      = new File(System.getProperty("user.dir"));
-        File[]     matches  = dir.listFiles(new FileFilter() {
-            @Override
-            public boolean accept(File dir) {
-                return !dir.isDirectory(); 
-            }
-        });
-        int          length = matches.length;
-        FileInfo[]   info  = new FileInfo[length];
-       
-        for (int index = 0; index < length; index++){
-            File   file      = matches[index];
-            String md5Check  = checksum.generateMd5(file.getPath());
-            String sha1Check = checksum.generateSHA1(file.getPath());
-            info[index]     = new FileInfo(file.getName(), md5Check, sha1Check);
-        }
-        return info;
-    }
-    
     public void actionPerformed(ActionEvent event) {
         writeData(scan());
     }
