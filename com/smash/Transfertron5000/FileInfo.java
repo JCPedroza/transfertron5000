@@ -41,11 +41,11 @@ public class FileInfo implements Serializable, Comparable<FileInfo> {
         return this.sha1 == that.getSha1();
     }
     
-    public boolean[] equals(FileInfo that) {
-        boolean[] returnArray = { this.equalsName(that), 
-                                  this.equalsMd5(that), 
-                                  this.equalsSha1(that) };
-        return returnArray;
+    public boolean equals(FileInfo that) {
+        return this.equalsName(that) && 
+               this.equalsMd5(that)  &&
+               this.equalsSha1(that);
+
     }
     
     @Override
