@@ -30,15 +30,15 @@ public class FileInfo implements Serializable, Comparable<FileInfo> {
     // Compare methods:
     
     public boolean equalsName(FileInfo that) {
-        return this.name == that.getName();
+        return this.name.equals(that.getName());
     }
     
     public boolean equalsMd5(FileInfo that) {
-        return this.md5 == that.getMd5();
+        return this.md5.equals(that.getMd5());
     }
     
     public boolean equalsSha1(FileInfo that) {
-        return this.sha1 == that.getSha1();
+        return this.sha1.equals(that.getSha1());
     }
     
     public boolean equals(FileInfo that) {
