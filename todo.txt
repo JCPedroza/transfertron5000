@@ -1,0 +1,1 @@
+- a way to know which comparison failed: name, md5, sha1?
