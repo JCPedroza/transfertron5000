@@ -1,7 +1,9 @@
 package com.smash.Transfertron5000;
+import java.io.Serializable;
 
-public class FileInfo {
+public class FileInfo implements Serializable{
     
+    private static final long serialVersionUID = 8540479341546942876L;
     private String name, md5, sha1;
     
     public FileInfo(String name, String md5, String sha1) {
