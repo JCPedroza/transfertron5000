@@ -13,7 +13,29 @@ import com.smash.Transfertron5000.Checksum;
 import com.smash.Transfertron5000.FileInfo;
 
 public class ScanListener implements ActionListener{
-    public void actionPerformed(ActionEvent event) {
+    
+    // Writes data to disc.
+    private void writeData(FileInfo[] info) {
+        FileOutputStream fileStream;
+        try {
+            fileStream = new FileOutputStream(".transfertron5000.ser");
+        } catch (FileNotFoundException e) {
+            fileStream = null;
+            e.printStackTrace();
+        }
+        ObjectOutputStream os;
+        try {
+            os = new ObjectOutputStream(fileStream);
+            os.writeObject(info);
+            os.close();
+        } catch (IOException e) {
+            os = null;
+            e.printStackTrace();
+        }
+    }
+    
+    // Scans files and generates checksums.
+    private FileInfo[] scan() {
         
         Checksum   checksum = new Checksum();
         File       dir      = new File(System.getProperty("user.dir"));
@@ -32,23 +54,10 @@ public class ScanListener implements ActionListener{
             String sha1Check = checksum.generateSHA1(file.getPath());
             info[index]     = new FileInfo(file.getName(), md5Check, sha1Check);
         }
-        
-        // Writing the data to a file
-        FileOutputStream fileStream;
-        try {
-            fileStream = new FileOutputStream(".state.ser");
-        } catch (FileNotFoundException e) {
-            fileStream = null;
-            e.printStackTrace();
-        }
-        ObjectOutputStream os;
-        try {
-            os = new ObjectOutputStream(fileStream);
-            os.writeObject(info);
-            os.close();
-        } catch (IOException e) {
-            os = null;
-            e.printStackTrace();
-        }
+        return info;
+    }
+    
+    public void actionPerformed(ActionEvent event) {
+        writeData(scan());
     }
 }
