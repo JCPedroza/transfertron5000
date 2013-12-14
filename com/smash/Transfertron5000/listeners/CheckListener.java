@@ -51,15 +51,46 @@ public class CheckListener extends BaseListener implements ActionListener {
         return info;
     }
     
-    public void actionPerformed(ActionEvent event) {
+    public boolean compare(FileInfo[] here, FileInfo[] there) {
         
-        FileInfo[] info = getInfoFile();
-        for (int i = 0; i < info.length; i++) {
-            System.out.println(info[i].getName());
-            System.out.println(info[i].getSha1());
-            System.out.println(info[i].getMd5());
+        int hereLength  = here.length,
+            thereLength = there.length;
+        
+        if (hereLength != thereLength) {
+            System.out.println("hereLength:" + hereLength + " thereLength:" + thereLength);
+            return false;
         }
         
+        for (int i = 0; i < here.length; i++) {
+            if (!here[i].equals(there[i])) {
+                System.out.println(here[i].getName() + " " + there[i].getName());
+                System.out.println(here[i].getMd5() + " " + there[i].getMd5());
+                System.out.println(here[i].getSha1() + " " + there[i].getSha1());
+                return false;
+            }
+        }
+        
+        System.out.println();
+        System.out.println("here: ");
+        for (FileInfo i : here) {
+            System.out.println(i.getName());
+        }
+        System.out.println();
+        System.out.println("there: ");
+        for (FileInfo i : here) {
+            System.out.println(i.getName());
+        }
+        System.out.println();
+        
+        return true;
+    }
+    
+    public void actionPerformed(ActionEvent event) {
+         
+        FileInfo[] infoHere  = scan(),
+                   infoThere = getInfoFile();
+                 
+        System.out.println(compare(infoHere, infoThere));
     }
     
 }
