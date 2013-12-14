@@ -2,7 +2,7 @@ package com.smash.Transfertron5000;
 
 import java.io.Serializable;
 
-public class FileInfo implements Serializable{
+public class FileInfo implements Serializable, Comparable<FileInfo> {
     
     private static final long serialVersionUID = 8540479341546942876L;
     private String name, md5, sha1;
@@ -14,6 +14,7 @@ public class FileInfo implements Serializable{
     }
     
     // Accessors:
+    
     public String getName() {
         return this.name;
     }
@@ -26,18 +27,18 @@ public class FileInfo implements Serializable{
         return this.sha1;
     }
     
-    // Equality methods:
+    // Compare methods:
     
     public boolean equalsName(FileInfo that) {
-        return this.name == that.name;
+        return this.name == that.getName();
     }
     
     public boolean equalsMd5(FileInfo that) {
-        return this.md5 == that.md5;
+        return this.md5 == that.getMd5();
     }
     
     public boolean equalsSha1(FileInfo that) {
-        return this.sha1 == that.sha1;
+        return this.sha1 == that.getSha1();
     }
     
     public boolean[] equals(FileInfo that) {
@@ -45,6 +46,11 @@ public class FileInfo implements Serializable{
                                   this.equalsMd5(that), 
                                   this.equalsSha1(that) };
         return returnArray;
+    }
+    
+    @Override
+    public int compareTo(FileInfo that) {
+        return this.name.compareTo(that.getName());
     }
 
 }
