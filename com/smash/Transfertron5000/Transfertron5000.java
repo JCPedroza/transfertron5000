@@ -29,27 +29,28 @@ public class Transfertron5000 {
     }
     
     class ButtonActionListener implements ActionListener {
-        Checksum checksum = new Checksum();
-    	File     dir      = new File(System.getProperty("user.dir"));
-    	String[] paths    = dir.list();
-    	File[]   matches  = dir.listFiles(new FileFilter() {
-    	    @Override
-    	    public boolean accept(File dir) {
-    	        return !dir.isDirectory(); 
-    	    }
-    	});
+        
         public void actionPerformed(ActionEvent event) {
-        	System.out.print("user.dir = ");
-        	System.out.println(System.getProperty("user.dir"));
-        	System.out.println("matches:");
-        	for (int index = 0; index < matches.length; index++){
-        		try {
-                    System.out.println(checksum.generateMd5(matches[index].toString()));
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+            
+            Checksum   checksum = new Checksum();
+            File       dir      = new File(System.getProperty("user.dir"));
+            File[]     matches  = dir.listFiles(new FileFilter() {
+                @Override
+                public boolean accept(File dir) {
+                    return !dir.isDirectory(); 
                 }
+            });
+            int          length = matches.length;
+            FileInfo[]   info   = new FileInfo[length];
+           
+        	for (int index = 0; index < length; index++){
+        	    File   file      = matches[index];
+        	    String md5Check  = checksum.generateMd5(file.getPath());
+        	    String sha1Check = checksum.generateSHA1(file.getPath());
+        	    info[index] = new FileInfo(file.getName(), md5Check, sha1Check);
+        	    System.out.println(info[index].getName());
+        	    System.out.println(info[index].getMd5());
+        	    System.out.println(info[index].getSha1());
         	}
         }
     }
