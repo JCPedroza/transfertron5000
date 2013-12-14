@@ -2,6 +2,7 @@ package com.smash.Transfertron5000.listeners;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.util.Arrays;
 
 import com.smash.Transfertron5000.Checksum;
 import com.smash.Transfertron5000.FileInfo;
@@ -28,6 +29,8 @@ public class BaseListener {
             String sha1Check = checksum.generateSHA1(file.getPath());
             info[index]     = new FileInfo(file.getName(), md5Check, sha1Check);
         }
+        
+        Arrays.sort(info);
         
         return info;
     }
