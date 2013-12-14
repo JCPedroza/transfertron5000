@@ -2,6 +2,7 @@ package com.smash.Transfertron5000;
 
 import javax.swing.*;
 import java.awt.*;
+
 import com.smash.Transfertron5000.listeners.*;
 
 public class Transfertron5000 {
@@ -23,6 +24,7 @@ public class Transfertron5000 {
         scanButton.setSize(20, 20);
         checkButton.setSize(20, 20);
         scanButton.addActionListener(new ScanListener());
+        checkButton.addActionListener(new CheckListener());
         // Add components
         frame.add(scanButton);
         frame.add(checkButton);
