@@ -2,8 +2,6 @@ package com.smash.Transfertron5000;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
 import com.smash.Transfertron5000.listeners.*;
 
 public class Transfertron5000 {
@@ -14,18 +12,20 @@ public class Transfertron5000 {
     }
     
     private void go() {
-        JFrame frame  = new JFrame();
-        Button button = new Button();
+        JFrame  frame       = new JFrame("Transfertron5000");
+        JButton scanButton  = new JButton("scan");
+        JButton checkButton = new JButton("check");
         // Set frame properties
         frame.setSize(400, 400);
         frame.setLayout(new FlowLayout());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Set button properties
-        button.setSize(20, 20);
-        button.addActionListener(new ScanListener());
-        button.setLabel("scan");
+        scanButton.setSize(20, 20);
+        checkButton.setSize(20, 20);
+        scanButton.addActionListener(new ScanListener());
         // Add components
-        frame.add(button);
+        frame.add(scanButton);
+        frame.add(checkButton);
         
         frame.setVisible(true);
     }
