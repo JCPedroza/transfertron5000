@@ -13,19 +13,48 @@ import org.apache.commons.codec.digest.DigestUtils;
 public class Checksum {
     
     // Generates md5 checksum hex String.
-    public String generateMd5(String fileName) throws FileNotFoundException, IOException {
-        FileInputStream fis = new FileInputStream(new File(fileName));
-        String          md5 = DigestUtils.md5Hex(fis);
+    public String generateMd5(String fileName) {
+        FileInputStream fis;
+        try {
+            fis = new FileInputStream(new File(fileName));
+        } catch (FileNotFoundException e) {
+            fis = null;
+            e.printStackTrace();
+        }
+        String md5;
+        try {
+            md5 = DigestUtils.md5Hex(fis);
+        } catch (IOException e) {
+            md5 = "<error>";
+            e.printStackTrace();
+        }
         return md5;
     }
     
-    public String generateSHA1(String fileName) throws NoSuchAlgorithmException, FileNotFoundException, IOException {
+    public String generateSHA1(String fileName) {
         int           n      = 0;
         byte[]        buffer = new byte[8192];
-        MessageDigest digest = MessageDigest.getInstance("SHA-1");
-        InputStream   fis    = new FileInputStream(fileName);
+        MessageDigest digest;
+        try {
+            digest = MessageDigest.getInstance("SHA-1");
+        } catch (NoSuchAlgorithmException e) {
+            digest = null;
+            e.printStackTrace();
+        }
+        InputStream fis;
+        try {
+            fis = new FileInputStream(fileName);
+        } catch (FileNotFoundException e) {
+            fis = null;
+            e.printStackTrace();
+        }
         while (n != -1) {
-            n = fis.read(buffer);
+            try {
+                n = fis.read(buffer);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             if (n > 0) {
                 digest.update(buffer, 0, n);
             }
