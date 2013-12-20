@@ -15,6 +15,7 @@ public class ChecksumResults {
         this.names          = new String[length];
         this.checksumsHere  = new String[length];
         this.checksumsThere = new String[length];
+        this.flags          = new boolean[length];
         
     }
     
@@ -28,13 +29,28 @@ public class ChecksumResults {
         this.names[index]          = theName;
         this.checksumsHere[index]  = checksumHere;
         this.checksumsThere[index] = checksumThere;
-        this.flags[index]          = checksumHere == checksumThere;
+        this.flags[index]          = checksumHere.equals(checksumThere);
         
     }
 
     // =======================================
     //              Accessors
     // =======================================
+    
+    @Override
+    public String toString() {
+        
+        String returnString = "";
+        for (int index = 0; index < this.length; index++) {
+            returnString += String.format("name: %s  there: %s  here: %s \n", 
+                                          this.names[index], 
+                                          this.checksumsThere[index], 
+                                          this.checksumsThere[index]);
+        }
+        returnString += "\n \n";
+        return returnString;
+        
+    }
     
     /** Are all checksum pairs equal? */
     public Boolean isGood() {

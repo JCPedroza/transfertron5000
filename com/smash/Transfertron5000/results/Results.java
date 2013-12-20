@@ -10,16 +10,22 @@ public class Results {
     private int             length;
     
     public Results(int length) {
-        
-        this.length      = length;
-        this.md5Results  = new ChecksumResults(length, "md5");
-        this.sha1Results = new ChecksumResults(length, "sha1");
-        
+        this.length      = length;        
+    }
+    
+    public void setChecksumResults(ChecksumResults md5Results, ChecksumResults sha1Results) {
+        this.md5Results  = md5Results;
+        this.sha1Results = sha1Results;
     }
     
     public void setIsGood(Boolean bool, String reason) {
         this.isGood = bool;
         this.reason += (reason + " ");
+    }
+    
+    @Override
+    public String toString() {
+        return md5Results.toString() + sha1Results.toString();
     }
     
 }

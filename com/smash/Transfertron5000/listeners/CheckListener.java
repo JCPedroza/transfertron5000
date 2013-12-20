@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 import com.smash.Transfertron5000.FileInfo;
+import com.smash.Transfertron5000.results.ChecksumResults;
 import com.smash.Transfertron5000.results.Results;
 
 public class CheckListener extends BaseListener implements ActionListener {
@@ -56,20 +57,21 @@ public class CheckListener extends BaseListener implements ActionListener {
     // Check for consistencies in name, md5, and sha1.
     private Results compare(FileInfo[] here, FileInfo[] there) {
         
-        int     hereLength  = here.length,
-                thereLength = there.length;
-        Results results     = new Results(here.length);
-        
-        if (hereLength != thereLength) {
-            results.setIsGood(false, "file number");
-            return results;
+        int             hereLength  = here.length,
+                        thereLength = there.length;
+        ChecksumResults md5Results  = new ChecksumResults(hereLength, "md5"),
+                        sha1Results = new ChecksumResults(hereLength, "sha1");
+        Results         results     = new Results(here.length);
+                
+        for (int i = 0; i < here.length ; i++) {            
+            md5Results.setIndex( i, here[i].getName(), here[i].getMd5(),  there[i].getMd5());
+            sha1Results.setIndex(i, here[i].getName(), here[i].getSha1(), there[i].getSha1());
         }
         
-        for (int i = 0; i < here.length; i++) {
-            
-        }
+        results.setChecksumResults(md5Results, sha1Results);
                
         return results;
+        
     }
        
     public void actionPerformed(ActionEvent event) {
