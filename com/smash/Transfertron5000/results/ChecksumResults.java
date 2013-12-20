@@ -2,12 +2,12 @@ package com.smash.Transfertron5000.results;
 
 public class ChecksumResults {
     
-    private String[] names;
-    private String[] checksumsHere;
-    private String[] checksumsThere;
-    private int      length;
-    private String   type;
-    private Boolean  isGood;
+    private boolean[] flags;
+    private String[]  names;
+    private String[]  checksumsHere;
+    private String[]  checksumsThere;
+    private int       length;
+    private String    type;
     
     public ChecksumResults(int length, String type) {
         
@@ -22,21 +22,31 @@ public class ChecksumResults {
     //               Mutators
     // =======================================
     
+    /** Set information for a checksum pair. */
     public void setIndex(int index, String theName, String checksumHere, String checksumThere) {
         
         this.names[index]          = theName;
         this.checksumsHere[index]  = checksumHere;
         this.checksumsThere[index] = checksumThere;
+        this.flags[index]          = checksumHere == checksumThere;
         
     }
-    
-    public void setIsGood(boolean bool) {
-        this.isGood = bool;
-    }
-    
+
     // =======================================
     //              Accessors
     // =======================================
+    
+    /** Are all checksum pairs equal? */
+    public Boolean isGood() {
+        
+        for (int index = 0; index < this.length; index++) {
+            if (!flags[index]) {
+                return false;
+            }
+        }
+        return true;
+        
+    }
     
     public int getLength() {
         return this.length;
@@ -45,11 +55,7 @@ public class ChecksumResults {
     public String getType() {
         return this.type;
     }
-    
-    public Boolean getIsGood() {
-        return this.isGood;
-    }
-    
+        
     public String[] getIndex(int index) {
         
         String[] returnArray = { this.names[index], 

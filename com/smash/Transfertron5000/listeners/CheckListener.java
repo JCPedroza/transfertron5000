@@ -8,9 +8,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 import com.smash.Transfertron5000.FileInfo;
+import com.smash.Transfertron5000.results.Results;
 
 public class CheckListener extends BaseListener implements ActionListener {
     
+    // Get info file from directory.
     private FileInfo[] getInfoFile() {
         
         FileInputStream fileStream;
@@ -51,40 +53,25 @@ public class CheckListener extends BaseListener implements ActionListener {
         return info;
     }
     
-    public boolean compare(FileInfo[] here, FileInfo[] there) {
+    // Check for consistencies in name, md5, and sha1.
+    private Results compare(FileInfo[] here, FileInfo[] there) {
         
-        int hereLength  = here.length,
-            thereLength = there.length;
+        int     hereLength  = here.length,
+                thereLength = there.length;
+        Results results     = new Results(here.length);
         
         if (hereLength != thereLength) {
-            System.out.println("hereLength:" + hereLength + " thereLength:" + thereLength);
-            return false;
+            results.setIsGood(false, "file number");
+            return results;
         }
         
         for (int i = 0; i < here.length; i++) {
-            if (!here[i].equals(there[i])) {
-                System.out.println(here[i].getName() + " " + there[i].getName());
-                System.out.println(here[i].getMd5() + " " + there[i].getMd5());
-                System.out.println(here[i].getSha1() + " " + there[i].getSha1());
-                return false;
-            }
+            
         }
-        
-        System.out.println();
-        System.out.println("here: ");
-        for (FileInfo i : here) {
-            System.out.println(i.getName());
-        }
-        System.out.println();
-        System.out.println("there: ");
-        for (FileInfo i : here) {
-            System.out.println(i.getName());
-        }
-        System.out.println();
-        
-        return true;
+               
+        return results;
     }
-    
+       
     public void actionPerformed(ActionEvent event) {
          
         FileInfo[] infoHere  = scan(),
