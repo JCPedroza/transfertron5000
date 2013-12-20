@@ -1,6 +1,7 @@
 package com.smash.Transfertron5000;
 
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -29,14 +30,17 @@ public class Transfertron5000 {
         frame.setSize(400, 400);
         frame.setLayout(new FlowLayout());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
         // Set button properties
         scanButton.setSize(20, 20);
         checkButton.setSize(20, 20);
         scanButton.addActionListener(new ScanListener(info));
         checkButton.addActionListener(new CheckListener(info));
+        
         // Set JLabel properties
         info.setSize(100, 100);
         info.setText("info :D");
+        info.setFont(new Font("Courier", Font.PLAIN, 12));
         // Add components
         frame.add(scanButton);
         frame.add(checkButton);

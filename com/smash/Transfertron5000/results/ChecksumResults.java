@@ -46,10 +46,10 @@ public class ChecksumResults {
         
         String returnString = "";
         for (int index = 0; index < this.length; index++) {
-            returnString += String.format("name: %s  there: %s  here: %s \n", 
-                                          this.names[index], 
+            returnString += String.format("there: %s  here: %s  name: %s \n",  
                                           this.checksumsThere[index], 
-                                          this.checksumsThere[index]);
+                                          this.checksumsThere[index],
+                                          this.names[index]);
         }
         returnString += "\n \n";
         return returnString;
