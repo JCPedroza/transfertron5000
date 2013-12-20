@@ -7,11 +7,26 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import javax.swing.JTextArea;
+
 import com.smash.Transfertron5000.FileInfo;
 
-public class ScanListener extends BaseListener implements ActionListener{
+public class ScanListener extends BaseListener implements ActionListener {
     
-    // Writes data to disc.
+    private JTextArea info;
+    
+    // =======================================
+    //             Constructor
+    // =======================================
+    
+    public ScanListener(JTextArea info) {
+        this.info = info;
+    }
+    
+    // =======================================
+    //               Methods
+    // =======================================
+    
     private void writeData(FileInfo[] info) {
         
         FileOutputStream fileStream;
@@ -35,5 +50,6 @@ public class ScanListener extends BaseListener implements ActionListener{
         
     public void actionPerformed(ActionEvent event) {
         writeData(scan());
+        this.info.setText("Directory Scanned");
     }
 }

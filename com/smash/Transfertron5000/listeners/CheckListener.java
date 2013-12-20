@@ -7,11 +7,23 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+import javax.swing.JTextArea;
+
 import com.smash.Transfertron5000.FileInfo;
 import com.smash.Transfertron5000.results.ChecksumResults;
 import com.smash.Transfertron5000.results.Results;
 
 public class CheckListener extends BaseListener implements ActionListener {
+    
+    private JTextArea info;
+    
+    // =======================================
+    //             Constructor
+    // =======================================
+    
+    public CheckListener(JTextArea info) {
+        this.info = info;
+    }
     
     // Get info file from directory.
     private FileInfo[] getInfoFile() {
@@ -57,8 +69,8 @@ public class CheckListener extends BaseListener implements ActionListener {
     // Check for consistencies in name, md5, and sha1.
     private Results compare(FileInfo[] here, FileInfo[] there) {
         
-        int             hereLength  = here.length,
-                        thereLength = there.length;
+        int             hereLength  = here.length;
+//                        thereLength = there.length;
         ChecksumResults md5Results  = new ChecksumResults(hereLength, "md5"),
                         sha1Results = new ChecksumResults(hereLength, "sha1");
         Results         results     = new Results(here.length);
@@ -79,8 +91,8 @@ public class CheckListener extends BaseListener implements ActionListener {
         FileInfo[] infoHere  = scan(),
                    infoThere = getInfoFile();
                  
-        System.out.println(compare(infoHere, infoThere));
-        System.out.println(compare(infoHere, infoThere).isGood());
+        this.info.setText(compare(infoHere, infoThere).toString());
+        
     }
     
 }

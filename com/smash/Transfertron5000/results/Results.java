@@ -37,4 +37,8 @@ public class Results {
         return this.md5Results.isGood() && this.sha1Results.isGood();
     }
     
+    public int getLength() {
+        return this.length;
+    }
+    
 }
