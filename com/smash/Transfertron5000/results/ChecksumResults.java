@@ -9,6 +9,10 @@ public class ChecksumResults {
     private int       length;
     private String    type;
     
+    // =======================================
+    //              Constructor
+    // =======================================
+    
     public ChecksumResults(int length, String type) {
         
         this.length         = length;

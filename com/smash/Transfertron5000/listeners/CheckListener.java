@@ -80,6 +80,7 @@ public class CheckListener extends BaseListener implements ActionListener {
                    infoThere = getInfoFile();
                  
         System.out.println(compare(infoHere, infoThere));
+        System.out.println(compare(infoHere, infoThere).isGood());
     }
     
 }
