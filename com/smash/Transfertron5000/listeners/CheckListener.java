@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 
 import com.smash.Transfertron5000.FileInfo;
 import com.smash.Transfertron5000.results.ChecksumResults;
@@ -15,13 +15,13 @@ import com.smash.Transfertron5000.results.Results;
 
 public class CheckListener extends BaseListener implements ActionListener {
     
-    private JTextArea info;
+    private JTextPane info;
     
     // =======================================
     //             Constructor
     // =======================================
     
-    public CheckListener(JTextArea info) {
+    public CheckListener(JTextPane info) {
         this.info = info;
     }
     

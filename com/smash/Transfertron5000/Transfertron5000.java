@@ -5,7 +5,7 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 
 import com.smash.Transfertron5000.listeners.CheckListener;
 import com.smash.Transfertron5000.listeners.ScanListener;
@@ -24,7 +24,7 @@ public class Transfertron5000 {
         JFrame     frame       = new JFrame("Transfertron5000");
         JButton    scanButton  = new JButton("scan");
         JButton    checkButton = new JButton("check");
-        JTextArea  info        = new JTextArea("info");
+        JTextPane  info        = new JTextPane();
         
         // Set frame properties
         frame.setSize(400, 400);
@@ -41,6 +41,7 @@ public class Transfertron5000 {
         info.setSize(100, 100);
         info.setText("info :D");
         info.setFont(new Font("Courier", Font.PLAIN, 12));
+        
         // Add components
         frame.add(scanButton);
         frame.add(checkButton);

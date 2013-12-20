@@ -7,19 +7,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 
 import com.smash.Transfertron5000.FileInfo;
 
 public class ScanListener extends BaseListener implements ActionListener {
     
-    private JTextArea info;
+    private JTextPane info;
     
     // =======================================
     //             Constructor
     // =======================================
     
-    public ScanListener(JTextArea info) {
+    public ScanListener(JTextPane info) {
         this.info = info;
     }
     
