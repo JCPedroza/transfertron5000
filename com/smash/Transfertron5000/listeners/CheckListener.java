@@ -95,7 +95,6 @@ public class CheckListener extends BaseListener implements ActionListener {
                    infoThere = getInfoFile();
                  
         this.info.setText(compare(infoHere, infoThere).toString());
-//        this.frame.pack();
         
     }
     

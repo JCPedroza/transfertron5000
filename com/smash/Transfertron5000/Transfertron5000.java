@@ -76,6 +76,7 @@ public class Transfertron5000 {
         checkButton.addActionListener(new CheckListener(info, frame));
         
         // Set JTextPane properties
+        info.setEditable(false);
         info.setSize(textPaneWidth, textPaneHeigth);
         info.setText("info :D");
         info.setFont(new Font("Courier", Font.PLAIN, 12));

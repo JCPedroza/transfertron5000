@@ -53,8 +53,9 @@ public class ScanListener extends BaseListener implements ActionListener {
     }
         
     public void actionPerformed(ActionEvent event) {
+        
         writeData(scan());
         this.info.setText("Directory Scanned");
-//        this.frame.pack();
+        
     }
 }
