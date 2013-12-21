@@ -78,16 +78,17 @@ public class ChecksumResults {
         
     public String[] getIndex(int index) {
         
-        String[] returnArray = { this.names[index], 
-                                 this.checksumsHere[index], 
-                                 this.checksumsThere[index] };
+        String[] returnArray = { this.checksumsHere[index], 
+                                 this.checksumsThere[index],
+                                 this.names[index], 
+                                 String.valueOf(this.flags[index])};
         return returnArray;
         
     }
     
     public String[][] getAll() {
         
-        String[][] returnArray = new String[this.length][3];
+        String[][] returnArray = new String[this.length][4];
         for (int index = 0; index < this.length; index++) {
             returnArray[index] = this.getIndex(index);
         }

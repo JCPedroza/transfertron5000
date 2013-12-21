@@ -1,5 +1,7 @@
 package com.smash.Transfertron5000.results;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 public class Results {
     
 
@@ -39,6 +41,30 @@ public class Results {
     
     public int getLength() {
         return this.length;
+    }
+    
+    public ChecksumResults getMd5Results() {
+        return md5Results;
+    }
+    
+    public ChecksumResults getSha1Results() {
+        return sha1Results;
+    }
+    
+    public ChecksumResults[] getResults() {
+        
+        ChecksumResults[] returnArray = { this.getMd5Results(), 
+                                          this.getSha1Results() };
+        return returnArray;
+        
+    }
+    
+    public String[][] getAll() {
+        
+        String[][] returnArray = ArrayUtils.addAll( md5Results.getAll(), 
+                                                    sha1Results.getAll() );
+        return returnArray;
+        
     }
     
 }

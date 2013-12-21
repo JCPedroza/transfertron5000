@@ -1,5 +1,7 @@
 package com.smash.Transfertron5000.listeners;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
@@ -8,24 +10,31 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 import javax.swing.JFrame;
-import javax.swing.JTextPane;
+import javax.swing.JScrollPane;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 import com.smash.Transfertron5000.FileInfo;
+import com.smash.Transfertron5000.JTextPanePlus;
 import com.smash.Transfertron5000.results.ChecksumResults;
 import com.smash.Transfertron5000.results.Results;
 
 public class CheckListener extends BaseListener implements ActionListener {
     
-    private JFrame    frame;
-    private JTextPane info;
+    private JFrame      frame;
+    private JScrollPane scrollPane;
+    private Results     results;
+    private boolean     flag;
     
     // =======================================
     //             Constructor
     // =======================================
     
-    public CheckListener(JTextPane info, JFrame frame) {
-        this.info  = info;
-        this.frame = frame;
+    public CheckListener(JScrollPane scrollPane, JFrame frame) {
+        this.scrollPane  = scrollPane;
+        this.frame       = frame;
     }
     
     // Get info file from directory.
@@ -73,7 +82,6 @@ public class CheckListener extends BaseListener implements ActionListener {
     private Results compare(FileInfo[] here, FileInfo[] there) {
         
         int             hereLength  = here.length;
-//                        thereLength = there.length;
         ChecksumResults md5Results  = new ChecksumResults(hereLength, "md5"),
                         sha1Results = new ChecksumResults(hereLength, "sha1");
         Results         results     = new Results(here.length);
@@ -90,11 +98,39 @@ public class CheckListener extends BaseListener implements ActionListener {
     }
        
     public void actionPerformed(ActionEvent event) {
-         
-        FileInfo[] infoHere  = scan(),
-                   infoThere = getInfoFile();
-                 
-        this.info.setText(compare(infoHere, infoThere).toString());
+                
+        Results       comparison = compare(scan(), getInfoFile());
+        flag = comparison.isGood();
+        String[][]    allInfo    = comparison.getAll();
+        
+        JTextPanePlus textPane   = new JTextPanePlus();
+        
+        StyledDocument doc = textPane.getStyledDocument();
+        Style style        = textPane.addStyle("style", null);
+        
+        textPane.setFont(new Font("Courier", Font.PLAIN, 12));
+                
+        for (int index = 0; index < allInfo.length; index++) {
+            
+            boolean isOk   = Boolean.parseBoolean(allInfo[index][3]);
+            String  string = "here: "  + allInfo[index][0] + "  " + 
+                             "there: " + allInfo[index][1] + "  " +
+                             "name: "  + allInfo[index][2] + "\n";
+            
+            if (isOk) {
+                StyleConstants.setForeground(style, Color.BLACK);
+            } else {
+                StyleConstants.setForeground(style, Color.RED);
+            }
+            
+            try {
+                doc.insertString(doc.getLength(), string, style);
+            } catch (BadLocationException e) {
+                e.printStackTrace();
+            } 
+        }
+        
+        scrollPane.setViewportView(textPane);
         
     }
     

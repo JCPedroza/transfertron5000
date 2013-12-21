@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 
 import com.smash.Transfertron5000.listeners.CheckListener;
@@ -23,12 +22,12 @@ public class Transfertron5000 {
     private int scrollPaneWidth  = 400;
     private int scrollPaneHeigth = 200;
     
-    private JPanel      buttonPanel;
-    private JFrame      frame;
-    private JButton     scanButton;
-    private JButton     checkButton;
-    private JTextPane   info;
-    private JScrollPane scrollPane;
+    private JPanel          buttonPanel;
+    private JFrame          frame;
+    private JButton         scanButton;
+    private JButton         checkButton;
+    private JTextPanePlus   info;
+    private JScrollPane     scrollPane;
         
     public static void main(String[] args) {
         
@@ -43,23 +42,7 @@ public class Transfertron5000 {
         scanButton  = new JButton("scan");
         checkButton = new JButton("check");
         buttonPanel = new JPanel();
-        
-        // Solution for no wrap text pane.
-        // http://tips4java.wordpress.com/2009/01/25/no-wrap-text-pane/
-        // http://stackoverflow.com/q/20713631/1690799
-        info        = new JTextPane() {
-            
-            private static final long serialVersionUID = -6069057904032366344L;
-            
-            public boolean getScrollableTracksViewportWidth() {
-                
-                return getUI().getPreferredSize(this).width 
-                    <= getParent().getSize().width;
-                
-            }
-            
-        };
-        
+        info        = new JTextPanePlus();
         scrollPane  = new JScrollPane( info, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                                        JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS );
         
@@ -73,7 +56,7 @@ public class Transfertron5000 {
         scanButton.setSize(20, 20);
         checkButton.setSize(20, 20);
         scanButton.addActionListener(new ScanListener(info, frame));
-        checkButton.addActionListener(new CheckListener(info, frame));
+        checkButton.addActionListener(new CheckListener(scrollPane, frame));
         
         // Set JTextPane properties
         info.setEditable(false);
