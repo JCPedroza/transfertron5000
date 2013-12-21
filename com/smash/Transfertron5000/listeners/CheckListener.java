@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+import javax.swing.JFrame;
 import javax.swing.JTextPane;
 
 import com.smash.Transfertron5000.FileInfo;
@@ -15,14 +16,16 @@ import com.smash.Transfertron5000.results.Results;
 
 public class CheckListener extends BaseListener implements ActionListener {
     
+    private JFrame    frame;
     private JTextPane info;
     
     // =======================================
     //             Constructor
     // =======================================
     
-    public CheckListener(JTextPane info) {
-        this.info = info;
+    public CheckListener(JTextPane info, JFrame frame) {
+        this.info  = info;
+        this.frame = frame;
     }
     
     // Get info file from directory.
@@ -92,6 +95,7 @@ public class CheckListener extends BaseListener implements ActionListener {
                    infoThere = getInfoFile();
                  
         this.info.setText(compare(infoHere, infoThere).toString());
+//        this.frame.pack();
         
     }
     
