@@ -4,11 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Insets;
 
+import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import javax.swing.border.EmptyBorder;
 
 import com.smash.Transfertron5000.listeners.CheckListener;
 import com.smash.Transfertron5000.listeners.ScanListener;
@@ -20,6 +23,7 @@ public class Transfertron5000 {
     private int scrollPaneWidth  = 400;
     private int scrollPaneHeigth = 200;
     
+    private JPanel      buttonPanel;
     private JFrame      frame;
     private JButton     scanButton;
     private JButton     checkButton;
@@ -38,6 +42,7 @@ public class Transfertron5000 {
         frame       = new JFrame("Transfertron5000");
         scanButton  = new JButton("scan");
         checkButton = new JButton("check");
+        buttonPanel = new JPanel();
         
         // Solution for no wrap text pane.
         // http://tips4java.wordpress.com/2009/01/25/no-wrap-text-pane/
@@ -55,11 +60,14 @@ public class Transfertron5000 {
             
         };
         
-        scrollPane  = new JScrollPane(info, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane  = new JScrollPane( info, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                                       JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS );
         
         // Set frame properties
-        frame.setLayout(new FlowLayout());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        // Set buttonPanel properties
+        buttonPanel.setLayout(new FlowLayout());
         
         // Set button properties
         scanButton.setSize(20, 20);
@@ -71,15 +79,16 @@ public class Transfertron5000 {
         info.setSize(textPaneWidth, textPaneHeigth);
         info.setText("info :D");
         info.setFont(new Font("Courier", Font.PLAIN, 12));
-//        info.setBorder(new EmptyBorder(new Insets(10, 10, 10, 10)));
-//        info.setMargin(new Insets(5, 5, 5, 5));
+        info.setBorder(new EmptyBorder(new Insets(10, 10, 10, 10)));
+        info.setMargin(new Insets(5, 5, 5, 5));
         
         // Set JScrollPane properties
         scrollPane.setPreferredSize(new Dimension(scrollPaneWidth, scrollPaneHeigth));
         
         // Add components
-        frame.add(scanButton);
-        frame.add(checkButton);
+        buttonPanel.add(scanButton);
+        buttonPanel.add(checkButton);
+        frame.add(buttonPanel, BorderLayout.NORTH);
         frame.add(scrollPane, BorderLayout.CENTER);
         
         frame.pack();
