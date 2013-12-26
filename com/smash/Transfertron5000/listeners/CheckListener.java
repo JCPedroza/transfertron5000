@@ -23,7 +23,6 @@ import com.smash.Transfertron5000.results.Results;
 
 public class CheckListener extends BaseListener implements ActionListener {
     
-    private JFrame      frame;
     private JScrollPane scrollPane;
     private Results     results;
     private boolean     flag;
@@ -32,9 +31,8 @@ public class CheckListener extends BaseListener implements ActionListener {
     //             Constructor
     // =======================================
     
-    public CheckListener(JScrollPane scrollPane, JFrame frame) {
+    public CheckListener(JScrollPane scrollPane) {
         this.scrollPane  = scrollPane;
-        this.frame       = frame;
     }
     
     // Get info file from directory.
@@ -100,7 +98,7 @@ public class CheckListener extends BaseListener implements ActionListener {
     public void actionPerformed(ActionEvent event) {
                 
         Results       comparison = compare(scan(), getInfoFile());
-        flag = comparison.isGood();
+        this.flag = comparison.isGood();
         String[][]    allInfo    = comparison.getAll();
         
         JTextPanePlus textPane   = new JTextPanePlus();

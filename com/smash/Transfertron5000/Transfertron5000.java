@@ -55,8 +55,8 @@ public class Transfertron5000 {
         // Set button properties
         scanButton.setSize(20, 20);
         checkButton.setSize(20, 20);
-        scanButton.addActionListener(new ScanListener(info, frame));
-        checkButton.addActionListener(new CheckListener(scrollPane, frame));
+        scanButton.addActionListener(new ScanListener(scrollPane));
+        checkButton.addActionListener(new CheckListener(scrollPane));
         
         // Set JTextPane properties
         info.setEditable(false);
