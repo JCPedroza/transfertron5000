@@ -1,1 +1,3 @@
 - a way to know which comparison failed: name, md5, sha1?
+- progress bar: one progress bar per file and one progress bar for the whole
+  thing
